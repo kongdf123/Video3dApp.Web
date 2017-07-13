@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\play-button.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\aframe-master.js" />
     <Content Include="Scripts\aframe-master.min.js" />

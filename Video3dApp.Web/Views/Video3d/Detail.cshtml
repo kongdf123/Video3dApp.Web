@@ -7,17 +7,17 @@
 	<meta charset="utf-8">
 	<title>360-Video Preview</title>
 	<style>
-		#play-button { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 2em; z-index: 10; }
+		#play-button { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 4em; z-index: 10; }
 	</style>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no">
 	<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
 	<script src="~/Scripts/jquery.min.js"></script>
-	@*<script src="~/Scripts/aframe-master.min.js"></script>*@
+	<script src="~/Scripts/aframe-master.min.js"></script>
 </head>
-<body>
-	<button id="play-button" style="display:none;">Play</button>
+<body style="background-image:url(/UploadFiles/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;">
+	<img src="~/Content/play-button.png" id="play-button" style="display:none;"/>
 	<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
 		<a-assets>
 			@{
@@ -39,7 +39,7 @@
 				</video>*@
 		</a-assets>
 		<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
-		<a-sky src="/UploadFiles/video-1920x960-poster22.jpg" transparent="true"></a-sky>
+		<a-sky src="/UploadFiles/video-1920x960-poster22.jpg" transparent="false"></a-sky>
 	</a-scene>
 	<script>
 		var Util = Util || {};
@@ -89,6 +89,7 @@
 			$("#play-button").click(function () {
 				$(this).hide();
 				var videoBox = $("#video")[0];
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				videoBox.play();
 			});
 			//}
@@ -100,12 +101,12 @@
 			//	})
 			//});
 
-			Util.checkFileLoadingProgress(function () {
-				var script = document.createElement("script");
-				script.type = "text/javascript";
-				script.src = "/Scripts/aframe-master.min.js";
-				document.getElementsByTagName("head")[0].appendChild(script);
-			});
+			//Util.checkFileLoadingProgress(function () {
+			//	var script = document.createElement("script");
+			//	script.type = "text/javascript";
+			//	script.src = "/Scripts/aframe-master.min.js";
+			//	document.getElementsByTagName("head")[0].appendChild(script);
+			//});
 
 		});
 	</script>
