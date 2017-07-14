@@ -86,23 +86,50 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\play-button.png" />
+    <Content Include="Content\images\play-button.png" />
+    <Content Include="Content\css\brand-usa.css" />
     <Content Include="Global.asax" />
+    <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\arrow-left01.png" />
+    <Content Include="Content\images\arrow-right01.png" />
+    <Content Include="Content\images\F1.png" />
+    <Content Include="Content\images\F2.png" />
+    <Content Include="Content\images\F3.png" />
+    <Content Include="Content\images\icon-banner1.jpg" />
+    <Content Include="Content\images\icon-banner2-01.jpg" />
+    <Content Include="Content\images\icon-banner2-02.jpg" />
+    <Content Include="Content\images\icon-banner2.jpg" />
+    <Content Include="Content\images\icon-banner3-01.jpg" />
+    <Content Include="Content\images\icon-banner3-02.jpg" />
+    <Content Include="Content\images\icon-banner3.jpg" />
+    <Content Include="Content\images\icon-banner4-01.jpg" />
+    <Content Include="Content\images\icon-banner4-02.jpg" />
+    <Content Include="Content\images\icon-banner4.jpg" />
+    <Content Include="Content\images\icon-banner5.jpg" />
+    <Content Include="Content\images\icon-close.png" />
+    <Content Include="Content\images\icon-logo.png" />
+    <Content Include="Content\images\icon-logo1.png" />
+    <Content Include="Content\images\icon-up.png" />
+    <Content Include="Content\images\model-code.png" />
+    <Content Include="Content\images\phone-banner1.jpg" />
+    <Content Include="Content\images\phone-banner2.jpg" />
+    <Content Include="Content\images\phone-banner3.jpg" />
+    <Content Include="Content\images\phone-banner4.jpg" />
+    <Content Include="Content\images\phone-icon-up.png" />
+    <Content Include="Content\images\phone-logo.png" />
+    <Content Include="Content\images\Shape1.png" />
+    <Content Include="Scripts\brand-usa.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.fullPage.min.js" />
     <Content Include="Scripts\aframe-master.js" />
     <Content Include="Scripts\aframe-master.min.js" />
-    <Content Include="Scripts\aframe-v0.6.0.js" />
-    <Content Include="Scripts\aframe-v0.6.0.min.js" />
-    <Content Include="Scripts\jquery.min.js" />
     <Content Include="UploadFiles\video-1920x960-poster22.jpg" />
-    <Content Include="UploadFiles\VRBrandUSA1.mp4" />
-    <Content Include="UploadFiles\VRBrandUSA2.mp4" />
     <Content Include="UploadFiles\VRBrandUSA3.mp4" />
-    <Content Include="Video3D.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Video3dController.cs" />
-    <Compile Include="Filters\FileDownloadAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -112,7 +139,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\Video3d\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

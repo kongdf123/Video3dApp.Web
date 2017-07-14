@@ -18,10 +18,17 @@ namespace Video3dApp.Web
 				url: "Video3d/{action}.mp4",
 				defaults: new { controller = "Video3d", action = "ReadVideo", id = UrlParameter.Optional }
 			);
+
+			routes.MapRoute(
+				name: "Brand_USA",
+				url: "newbrand-usa.html",
+				defaults: new { controller = "Video3d", action = "Detail" }
+			);
+
 			routes.MapRoute(
 				name: "Default",
-				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Video3d", action = "Detail", id = UrlParameter.Optional }
+				url: "{controller}/{action}",
+				defaults: new { controller = "Video3d", action = "Detail" }
 			);
 		}
 	}

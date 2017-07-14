@@ -2,7 +2,6 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Video3dApp.Web.Filters;
 
 namespace Video3dApp.Controllers
 {
@@ -18,7 +17,7 @@ namespace Video3dApp.Controllers
 			}
 		}
 
-		[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post | HttpVerbs.Options), FileDownload]
+		[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post | HttpVerbs.Options)]
 		public void ReadVideo() {
 			var reqRange = Request.Headers["Range"];
 			string[] reqBlockRange = null;

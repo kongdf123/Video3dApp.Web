@@ -1,0 +1,475 @@
+/**
+ * fullPage 2.1.9
+ * https://github.com/alvarotrigo/fullPage.js
+ * MIT licensed
+ *
+ * Copyright (C) 2013 alvarotrigo.com - A project by Alvaro Trigo
+ */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+
+    /*Avoid flicker on slides transitions for mobile phones #336 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+    font-family: "Helvetica Neue","Helvetica","Microsoft Yahei",Arial,sans-serif;
+}
+#superContainer {
+    height: 100%;
+    position: relative;
+
+    /* Touch detection for Windows 8 */
+    -ms-touch-action: none;
+
+    /* IE 11 on Windows Phone 8.1*/
+    touch-action: none;
+}
+.fp-section {
+    position: relative;
+    -webkit-box-sizing: border-box; /* Safari<=5 Android<=3 */
+    -moz-box-sizing: border-box; /* <=28 */
+    box-sizing: border-box;
+}
+.fp-slide {
+    float: left;
+}
+.fp-slide, .fp-slidesContainer {
+    height: 100%;
+    display: block;
+}
+.fp-slides {
+    z-index:1;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    -webkit-transition: all 0.3s ease-out; /* Safari<=6 Android<=4.3 */
+    transition: all 0.3s ease-out;
+}
+.fp-section.fp-table, .fp-slide.fp-table {
+    display: table;
+    width: 100%;
+}
+.fp-tableCell {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+.fp-slidesContainer {
+    float: left;
+    position: relative;
+}
+.fp-controlArrow {
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin-top: -26px;
+}
+.fp-controlArrow.fp-prev {
+    left: 15px;
+    width: 0;
+    border-width: 38.5px 34px 38.5px 0;
+    border-color: transparent #fff transparent transparent;
+}
+.fp-controlArrow.fp-next {
+    right: 15px;
+    border-width: 38.5px 0 38.5px 34px;
+    border-color: transparent transparent transparent #fff;
+}
+#fp-nav {
+    position: fixed;
+    z-index: 100;
+    margin-top: -32px;
+    top: 50%;
+    opacity: 1;
+    display: none;
+}
+#fp-nav.right {
+    right: 17px;
+}
+#fp-nav.left {
+    left: 17px;
+}
+.fp-slidesNav {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    opacity: 1;
+}
+.fp-slidesNav.bottom {
+    bottom: 17px;
+}
+.fp-slidesNav.top {
+    top: 17px;
+}
+#fp-nav ul,
+.fp-slidesNav ul {
+  margin: 0;
+  padding: 0;
+}
+#fp-nav li {
+    display: block;
+    width: 14px;
+    height: 13px;
+    margin: 7px;
+    position:relative;
+}
+#fp-nav li a {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    text-decoration: none;
+}
+#fp-nav li .active span {
+    background: #000;
+}
+#fp-nav span {
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #000;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+}
+.fp-tooltip {
+    position: absolute;
+    top: -2px;
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    max-width: 220px;
+}
+.fp-tooltip.right {
+    right: 20px;
+}
+.fp-tooltip.left {
+    left: 20px;
+}
+
+/*布局样式*/
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+.inner {
+	position: relative;
+	width: 1100px;
+	margin: 0 auto;
+}
+#scrollpage .inner {
+	width: 960px;
+	height: 100%;
+}
+@media (min-width: 769px) {
+    .loading-bg{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left: 0;
+    }
+    .brand-logo {
+    	position: absolute;
+    	top: 50px;
+    	left: 50px;
+    	width: 280px;
+    	height: 73px;
+    }
+    .brand-logo img{
+    	width: 100%;
+    	height: auto;
+    }
+
+    #scrollpage .section2 img, #scrollpage .section3 img, #scrollpage .section4 img {
+    	height: 100%;
+    	width: 100%;
+    }
+    #scrollpage .fp-controlArrow {
+    	width: 25px;
+    	height: 45px;
+    	border: 0 none;
+    }
+    #scrollpage .fp-prev {
+    	left: 60px;
+    	background: url(../img/american-brand/arrow-left01.png) no-repeat;
+    	background-size: 25px 45px;
+    }
+    #scrollpage .fp-next {
+    	right: 60px;
+    	background: url(../img/american-brand/arrow-right01.png) no-repeat;
+    	background-size: 25px 45px;
+    }
+    .foot {
+    	position: absolute;
+    	z-index: 999;
+    	bottom: 3%;
+    	left: 50%;
+    	margin-left: -18px;
+    	width: 37px;
+    	height: 37px;
+    }
+    /**/
+    .leading-words {
+    	position: absolute;
+    	top: 61%;
+        margin-left: -3%;
+    	width: 100%;
+    	color: #fff;
+    	font-size: 28px;
+    	font-weight: bold;
+    	text-align: center;
+    }
+    .introduce {
+    	position: absolute;
+    	bottom: 15%;
+    	width: 100%;
+    	padding-left: 60px;
+    	text-align: left;
+    	color: #fff;
+    }
+    .introduce-title {
+    	position: relative;
+    	font-size: 28px;
+    	font-weight: bold;
+    }
+    .introduce-text {
+    	font-size: 18px;
+    	padding-top: 10px;
+    }
+    /*立即预定*/
+    .reserve-btn {
+    	position: relative;
+    	bottom: 19%;
+    	width: 100%;
+    	text-align: right;
+    	color: #fff;
+    }
+    .reserve-btn a{
+    	position: relative;
+    	right: 90px;
+    	display: inline-block;
+    	text-align: center;
+    	border: 2px solid #fff;
+    	border-radius: 10px;
+    	font-size: 20px;
+    	color: #fff;
+    	cursor: pointer;
+    }
+    .reserve-btn a span {
+    	display: block;
+    	opacity: 0.8;
+    	padding: 8px 35px;
+    }
+    .reserve-btn a span:hover {
+    	background: #2a282f;
+    	opacity: 0.5;
+    	border-radius: 10px;
+    }
+    .about-logo {
+        width: 100%;
+        text-align: center;
+        padding-top: 30px
+    }
+    .about-logo img {
+        width: 200px;
+    }
+    .about-title {
+        padding: 15px 100px 0;
+        text-align: center;
+    }
+    .about-title h5 {
+        font-size: 24px; 
+    }
+    .about-title p {
+        padding-top: 15px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .ft-pic {
+        position: absolute;
+        left: 0;
+        bottom: -5%;
+        width: 100%;
+    }
+}
+/*
+*移
+*动
+*端
+*/
+@media (max-width: 768px) {
+    .phone-logo {
+        width: 100%;
+        text-align: center;
+        padding-top: 25px;
+    }
+    .phone-logo img {
+        width: 62.5%;
+        height: auto;
+    }
+    .phone-banner {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding-top: 20px;
+    }
+    .padding10 {
+        padding-top: 10px;
+    }
+    .phone-banner img{
+        width: 100%;
+        height: auto;
+    }
+    .page-text1 {
+        padding-top: 25px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .padding-no {
+        padding: 0;
+    }
+    .phone-centent {
+        padding: 0 25px;
+        text-align: left;
+        display: inline-block;
+    }
+    .page-text2 {
+        padding-top: 15px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .page-text3 {
+        padding-top: 5px;
+        font-size: 16px;
+    }
+    /*按钮*/
+    .phone-reserve-btn {
+        border: 2px solid #000;
+        border-radius: 5px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    .phone-reserve-btn span {
+        display: block;
+        color: #333;
+        font-size: 16px;
+        padding: 6px 16px;
+    }
+    .foot {
+        position: absolute;
+        z-index: 999;
+        bottom: 3%;
+        left: 50%;
+        margin-left: -11px;
+        width: 22px;
+        height: 22px;
+    }
+    .phone-about-logo {
+        padding: 30px 20px 0;
+        text-align: center;
+    }
+    .phone-about-logo img {
+        width: 40%;
+    }
+    .phone-about-title {
+        padding: 20px 20px 0;
+        text-align: center;
+    }
+    .phone-about-title h5 {
+        font-size: 18px; 
+    }
+    .phone-about-title p {
+        padding-top: 15px;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+    /*蒙版层*/
+    .model-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        z-index: 99998;
+    }
+    .model-centent {
+        position: absolute;
+        top: 20%;
+        left: 0;
+        z-index: 99999;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+    }
+    .model-centent p {
+        font-size: 16px;
+    }
+    .model-centent img {
+        width: 140px;
+        height: 140px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .model-close {
+        position: absolute;
+        right: 5%;
+        top: 5%;
+        z-index: 99999;
+        width: 20px;
+        height: 20px;
+    }
+}
+/*向下的动画箭头*/
+    .hd-up, .hd-up1 {
+        position: relative;
+        width: 100%;
+        height: auto;
+        -webkit-animation: moveToBottom ease 1s both infinite;
+        animation: moveToBottom ease 1s both infinite;
+    }
+
+    @keyframes moveToBottom {
+        0% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        50% {
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+        }
+    }
+.main{
+    width: 100%;
+    margin: 0 auto;
+}
+.ph-text {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding-top: 40%;
+    color: #fff;
+    text-align: center;
+}
