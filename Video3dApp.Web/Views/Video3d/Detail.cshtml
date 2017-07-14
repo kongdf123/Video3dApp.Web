@@ -24,13 +24,17 @@
 				System.Text.RegularExpressions.Regex regMacOriOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
 			}
 			@if ( regMacOriOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
-				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" height="200" style="object-fit:fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" preload autoplay controls ></video>
+				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" style="object-fit:fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" crossorigin="anonymous" preload controls ></video>
 				@*<video id="video" src="~/UploadFiles/VRBrandUSA1.mp4" controls="controls" preload="auto" crossorigin="anonymous" autobuffer muted loop controls webkit-playsinline>
 						<source src="~/UploadFiles/VRBrandUSA1.mp4" type="video/mp4" />
-					</video>*@ 
+					</video>*@
+
+				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" style="object-fit:fill"  controls="controls" preload="auto" crossorigin="anonymous" preload controls style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autoplay autobuffer loop controls>
+					<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
+				</video>
 			}
 			else {
-				<video id="video" src="/Video3d/ReadVideo.mp4" controls="controls" preload="auto" crossorigin="anonymous" preload controls style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autoplay autobuffer muted loop controls >
+				<video id="video" src="/Video3d/ReadVideo.mp4" controls="controls" preload="auto" crossorigin="anonymous" preload controls style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop controls >
 					<source src="/Video3d/ReadVideo.mp4" type="video/mp4" />
 				</video>
 			}
@@ -94,12 +98,11 @@
 			});
 			//}
 
-			//$("body").on("click", ".a-enter-vr-button", function () {
-			//	var els = document.querySelectorAll('.video')
-			//	Array.prototype.slice.call(els).forEach(function (el) {
-			//		el.components.material.material.map.image.play()
-			//	})
-			//});
+			$("body").on("click", ".a-enter-vr-button", function () {
+				var videoBox = $("#video")[0];
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
+				videoBox.play();
+			});
 
 			//Util.checkFileLoadingProgress(function () {
 			//	var script = document.createElement("script");
