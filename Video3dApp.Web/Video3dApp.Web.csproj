@@ -124,7 +124,7 @@
     <Content Include="Scripts\jquery.fullPage.min.js" />
     <Content Include="Scripts\aframe-master.js" />
     <Content Include="Scripts\aframe-master.min.js" />
-    <Content Include="UploadFiles\video-1920x960-poster22.jpg" />
+    <Content Include="Content\images\video-1920x960-poster22.jpg" />
     <Content Include="UploadFiles\VRBrandUSA3.mp4" />
     <Content Include="Web.config" />
   </ItemGroup>
