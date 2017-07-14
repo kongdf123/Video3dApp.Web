@@ -15,7 +15,7 @@
 	<link href="/Content/css/brand-usa.css" rel="stylesheet" />
 	<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
 	<style>
-		#play-button { position: relative; top: -237px; left: calc(50% - 2em); width: 4em; height: 4em; z-index: 10; }
+		#play-button { position: relative; top: -190px; left: calc(50% - 2em); width: 4em; height: 4em; z-index: 10; }
 	</style>
 </head>
 <body>
@@ -28,18 +28,14 @@
 					<img src="/Content/images/phone-logo.png">
 				</div>
 				<div class="phone-banner padding10">
-					<div id="pano" style="width:100%;height:300px;">
-						<img src="/Content/images/phone-banner2.jpg">
-						<img src="~/Content/images/play-button.png" id="play-button" />
-					</div>
-					<div style="width:100%;height:300px;display:none;overflow:hidden;background-image:url(/UploadFiles/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;" id="vrPlayArea">
-						<a-scene style="height: 300px;">
+					<div style="width:100%;height:300px;overflow:hidden;background-image:url(/Content/images/phone-banner2.jpg);background-size:100% 100%;background-repeat:no-repeat;" id="vrPlayArea">
+						<a-scene>
 							<a-assets>
 								@{
 									System.Text.RegularExpressions.Regex regMacOrIOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
 								}
 								@if ( regMacOrIOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
-									<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" style="object-fit:fill" controls="controls" preload="auto" crossorigin="anonymous"
+									<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" style="object-fit:fill" controls="controls" preload="auto" crossorigin="anonymous"
 										   ebkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop>
 										<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
 									</video>
@@ -50,9 +46,10 @@
 									</video>
 								}
 							</a-assets>
+							<a-sky src="/Content/images/phone-banner2.jpg" transparent="false"></a-sky>
 							<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
-							<a-sky src="/UploadFiles/video-1920x960-poster22.jpg" transparent="false"></a-sky>
 						</a-scene>
+						<img src="~/Content/images/play-button.png" id="play-button" />
 					</div>
 					<div class="phone-centent">
 						<p class="page-text2">假装在拉斯维加斯</p>
@@ -152,9 +149,9 @@
 	<script type="text/javascript" src="~/Scripts/aframe-master.min.js"></script>
 	<script type="text/javascript">
 		$(function () {
-			//$('#scrollpage').fullpage({
-			//	navigation: true
-			//});
+			$('#scrollpage').fullpage({
+				navigation: true
+			});
 			$('.tbn-model').click(function () {
 				$('.tk-model').show();
 			})
@@ -164,8 +161,7 @@
 
 			$("#play-button").click(function () {
 				$(this).hide();
-				$("#pano").hide();
-				$("#vrPlayArea").show();
+				$("a-scene").insertBefore("#scrollpage").css("z-index",100);
 				var videoBox = $("#video")[0];
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				videoBox.play();
@@ -173,6 +169,7 @@
 			});
 
 			$("body").on("click", ".a-enter-vr-button", function () {
+				$("a-scene").insertBefore("#scrollpage").css("z-index", 100);
 				var videoBox = $("#video")[0];
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				videoBox.play();

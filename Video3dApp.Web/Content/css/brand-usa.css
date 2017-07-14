@@ -332,10 +332,7 @@ a {
     .padding10 {
         padding-top: 10px;
     }
-    .phone-banner img{
-        width: 100%;
-        height: auto;
-    }
+	.phone-banner img, .phone-banner .vr-mask { width: 100%; height: auto; }
     .page-text1 {
         padding-top: 25px;
         text-align: center;
