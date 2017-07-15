@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\play-button.png" />
     <Content Include="Content\css\brand-usa.css" />
     <Content Include="Global.asax" />

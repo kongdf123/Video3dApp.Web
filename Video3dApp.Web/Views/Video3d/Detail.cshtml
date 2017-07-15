@@ -4,164 +4,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Brand USA</title>
 	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no">
-	<meta name="format-detection" content="telephone=no">
-	<meta http-equiv="x-rim-auto-match" content="none">
-	<link href="/Content/css/brand-usa.css" rel="stylesheet" />
-	<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+	<title>360-Video Preview</title>
 	<style>
-		#play-button {
-			position: relative;
-			top: 160px;
+		#play-button, #loading-icon {
+			position: fixed;
+			top: calc(50% - 1em);
 			left: calc(50% - 2em);
-			width: 4em !important;
-			height: 4em !important;
-			z-index: 11;
-			display:none;
-		}
-		#video {
-		display:none;
+			width: 4em;
+			height: 4em;
+			z-index: 10;
 		}
 	</style>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no">
+	<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+	<script src="~/Scripts/jquery-3.1.1.js"></script>
+	<script src="~/Scripts/aframe-master.min.js"></script>
 </head>
-<body>
-	<!--pc端-->
-
-	<div id="scrollpage">
-		<div class="section section1">
-			<div class="width_min">
-				<div class="phone-logo" id="title">
-					<img src="/Content/images/phone-logo.png">
-				</div>
-				<div class="phone-banner padding10">
-					<div style="width:100%;min-height: 360px;overflow:hidden;background-image:url(/Content/images/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;" id="vrPlayArea">
-						<a-scene>
-							<a-assets>
-								@{
-									System.Text.RegularExpressions.Regex regMacOrIOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
-								}
-								@if ( regMacOrIOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
-									<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" style="object-fit:fill" controls="controls" preload="auto" crossorigin="anonymous" ebkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop>
-										<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
-									</video>
-								}
-								else {
-									<video id="video" src="/Video3d/ReadVideo.mp4" preload="auto" crossorigin="anonymous" style="object-fit: fill" controls="controls" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop>
-										<source src="/Video3d/ReadVideo.mp4" type="video/mp4" />
-									</video>
-								}
-							</a-assets>
-							<a-sky src="/Content/images/video-1920x960-poster22.jpg" transparent="false"></a-sky>
-							<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
-						</a-scene>
-						<img src="~/Content/images/play-button.png" id="play-button" />
-					</div>
-					<div class="phone-centent">
-						<p class="page-text2">假装在拉斯维加斯</p>
-						<a class="phone-reserve-btn tbn-model">
-							<span>申领VR眼镜</span>
-						</a>
-					</div>
-				</div>
-				<div class="foot">
-					<img src="/Content/images/phone-icon-up.png" class="hd-up1">
-				</div>
-			</div>
-			<!--蒙版层-->
-			<div class="tk-model" style="display: none">
-				<div class="model-bg"></div>
-				<img src="/Content/images/icon-close.png" class="model-close">
-				<div class="model-centent">
-					<p>长按关注「托迈酷客」</p>
-					<img src="/Content/images/model-code.png">
-					<p>回复#申领VR#<br />即可获得VR眼镜</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="section section2">
-			<div class="width_min">
-				<div class="phone-banner padding-no">
-					<img src="/Content/images/phone-banner2.jpg">
-				</div>
-				<div class="phone-centent">
-					<p class="page-text2">美西9日自驾<br />订制化品牌租车服务</p>
-					<p class="page-text3">漫漫美国西海岸的“征途”，只用一种方法让你征服它——自驾</p>
-					<a class="phone-reserve-btn" href="http://www.thomascook.com.cn/zh/product-package/san-francisco">
-						<span>立即预定</span>
-					</a>
-				</div>
-				<div class="foot">
-					<img src="/Content/images/phone-icon-up.png" class="hd-up1">
-				</div>
-			</div>
-		</div>
-
-		<div class="section section3">
-			<div class="width_min">
-				<div class="phone-banner padding-no">
-					<img src="/Content/images/phone-banner3.jpg">
-				</div>
-				<div class="phone-centent">
-					<p class="page-text2">佛罗里达11日自驾<br />订制化品牌租车服务</p>
-					<p class="page-text3">满载一车厢的欢声笑语，全家奔向佛罗里达的阳光、乐园、沙滩</p>
-					<a class="phone-reserve-btn" href="http://www.thomascook.com.cn/zh/product-package/florida-usa">
-						<span>立即预定</span>
-					</a>
-				</div>
-				<div class="foot">
-					<img src="/Content/images/phone-icon-up.png" class="hd-up1">
-				</div>
-			</div>
-		</div>
-
-		<div class="section section4">
-			<div class="width_min">
-				<div class="phone-banner padding-no">
-					<img src="/Content/images/phone-banner4.jpg">
-				</div>
-				<div class="phone-centent">
-					<p class="page-text2">美东时尚与文化之旅</p>
-					<p class="page-text3">如果美西是狂野的话，美国东海岸则以资深、时尚、文化自居</p>
-					<a class="phone-reserve-btn" href="http://www.thomascook.com.cn/zh/product-package/usa-culture-and-education">
-						<span>立即预定</span>
-					</a>
-				</div>
-				<div class="foot">
-					<img src="/Content/images/icon-up.png" class="hd-up">
-				</div>
-
-			</div>
-		</div>
-
-		<div class="section section5">
-			<div class="width_min">
-				<div class="phone-about-logo">
-					<img src="/Content/images/icon-logo1.png">
-				</div>
-				<div class="phone-about-title">
-					<h5>关于Brand USA美国旅游推广局</h5>
-					<p>Brand USA美国旅游推广局为非盈利性的半政府机构，致力于向全球游客推广美国这一世界顶级旅游目的地，并就美国出入境政策和流程进行沟通。它在《美国旅游促进法》指引下成立，旨在通过与旅游业以及联邦政府的密切合作，促进海外游客赴美旅游，带动经济，并提升美国在全球的形象。Brand USA美国旅游推广局于2010年成立，并于2011年5月开始运作，以Brand USA为品牌展开运营。根据牛津经济研究院的调查，过去三年来，Brand USA美国旅游推广局已与全球600多家伙伴建立了合作。研究显示，过去三年Brand USA美国旅游推广局新营销，使赴美游客数量增加了300多万，为美国带来了近210亿美元的总体v经济效益，平均每年增加5万个就业岗位。</p>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<script type="text/javascript" src="/Scripts/jquery-3.1.1.js"></script>
-	<script type="text/javascript" src="/Scripts/jquery.easing.min.js"></script>
-	<script type="text/javascript" src="/Scripts/jquery.fullPage.min.js"></script>
-	<script type="text/javascript" src="~/Scripts/aframe-master.min.js"></script>
-	<script type="text/javascript">
+<body style="background-image:url(/Content/images/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;">
+	<img src="~/Content/images/play-button.png" id="play-button" style="display:none;" />
+	<img src="~/Content/images/loading.gif" id="loading-icon"/>
+	<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+		<a-assets>
+			@{
+				System.Text.RegularExpressions.Regex regMacOriOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
+			}
+			@if ( regMacOriOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
+				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" height="200" style="object-fit:fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" preload="auto" autobuffer loop autoplay>
+					<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
+				</video>
+			}
+			else {
+				<video id="video" src="/Video3d/ReadVideo.mp4" preload="auto" crossorigin="anonymous" style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop autoplay>
+					<source src="/Video3d/ReadVideo.mp4" type="video/mp4" />
+				</video>
+			}
+		</a-assets>
+		<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
+		<a-sky src="/Content/images/video-1920x960-poster22.jpg" transparent="false"></a-sky>
+	</a-scene>
+	<script>
 		var Util = Util || {};
 		(function (o) {
 			o.checkFileLoadingProgress = function (callback) {
-				var isCompleted = false;
 				var maxTimeout = 5 * 60 * 1000; //Waiting 5 minutes
 				var ticks = 0;
 				var checkTimer = setInterval(function () {
@@ -170,8 +57,6 @@
 
 						//execute specified callback
 						callback();
-
-						return;
 					}
 					if (ticks * 1000 > maxTimeout) {
 						clearInterval(checkTimer);
@@ -180,50 +65,49 @@
 				}, 1000);
 			};
 		})(Util);
-		$(function () {
-			$('#scrollpage').fullpage({
-				navigation: true
-			});
-			$('.tbn-model').click(function () {
-				$('.tk-model').show();
-			})
-			$('.model-close').click(function () {
-				$('.tk-model').hide();
-			})
 
+		$(function () {
 			$("#play-button").click(function () {
 				$(this).hide();
-				//$("a-scene").insertBefore("#scrollpage").css("z-index",100);
 				playVRVideo();
-				return false;
+			});
+		
+			Util.checkFileLoadingProgress(function () {
+				$("a-sky").hide();
+				$("a-scene").css({"top": "0px", "left": "0px", "z-index": "9" });
 			});
 
-			$("body").on("click", ".a-enter-vr-button", function () {
-				//$("a-scene").insertBefore("#scrollpage").css("z-index", 100);
+			document.querySelector("a-scene").addEventListener('enter-vr', function () {
 				playVRVideo();
+			});
+
+			document.querySelector("a-scene").addEventListener('loaded', function () {
+				//$("#play-button").show();
+				$("#loading-icon").hide();
 			});
 
 			function playVRVideo() {
 				var videoBox = $("#video")[0];
 				videoBox.play();
+				$("a-sky").hide();
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				$("a-scene").css({"top": "0px", "left": "0px", "z-index": 10 });
+				$("a-scene").css({ "top": "0px", "left": "0px", "z-index": "9" });
 			}
-
-			Util.checkFileLoadingProgress(function () {
-				$("#video").hide();
-				$("#play-button").show();
-				var videoEl = document.querySelector('#video');
-				videoEl.pause();
-				document.querySelector("a-scene").addEventListener('loaded', function () {
-					document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-					document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-					$(".a-enter-vr-button").css({ "top": "50px", "left": "50px", "z-index": 11 });
-					$("a-sky").css({ "top": "0px", "left": "0px", "z-index": 10 });
-					$("a-scene").css({ "z-index": 10 });
-				});
-			});
 		});
+
+		// Fix js 'console' compatibility
+		var console = window.console || {};
+		(function (o) {
+			var funcs = ['assert', 'clear', 'count', 'debug', 'dir', 'dirxml',
+						 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd',
+						 'info', 'log', 'markTimeline', 'profile', 'profileEnd',
+						 'table', 'time', 'timeEnd', 'timeStamp', 'trace', 'warn'];
+			for (var i = 0, l = funcs.length; i < l; i++) {
+				var func = funcs[i];
+				o[func] = o[func] || function () { };
+			}
+			o.memory = o.memory || {};
+		})(console);
 	</script>
 </body>
 </html>
