@@ -22,6 +22,10 @@
 			width: 4em !important;
 			height: 4em !important;
 			z-index: 11;
+			display:none;
+		}
+		#video {
+		display:none;
 		}
 	</style>
 </head>
@@ -201,14 +205,23 @@
 
 			function playVRVideo() {
 				var videoBox = $("#video")[0];
-				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				videoBox.play();
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				$("a-scene").css({"top": "0px", "left": "0px", "z-index": 10 });
 			}
 
 			Util.checkFileLoadingProgress(function () {
-				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				$("a-scene").css({ "z-index": 10 });
+				$("#video").hide();
+				$("#play-button").show();
+				var videoEl = document.querySelector('#video');
+				videoEl.pause();
+				document.querySelector("a-scene").addEventListener('loaded', function () {
+					document.querySelector("a-sky").setAttribute("material", "opacity", 0);
+					document.querySelector("a-sky").setAttribute("material", "opacity", 0);
+					$(".a-enter-vr-button").css({ "top": "50px", "left": "50px", "z-index": 11 });
+					$("a-sky").css({ "top": "0px", "left": "0px", "z-index": 10 });
+					$("a-scene").css({ "z-index": 10 });
+				});
 			});
 		});
 	</script>
