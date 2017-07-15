@@ -140,6 +140,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Video3d\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Video3d\BrandUSA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

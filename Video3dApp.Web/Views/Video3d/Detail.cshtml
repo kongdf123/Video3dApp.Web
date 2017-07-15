@@ -24,27 +24,9 @@
 	<script src="~/Scripts/aframe-master.min.js"></script>
 </head>
 <body style="background-image:url(/Content/images/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;">
+
 	<img src="~/Content/images/play-button.png" id="play-button" style="display:none;" />
-	<img src="~/Content/images/loading.gif" id="loading-icon"/>
-	<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
-		<a-assets>
-			@{
-				System.Text.RegularExpressions.Regex regMacOriOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
-			}
-			@if ( regMacOriOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
-				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" height="200" style="object-fit:fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" preload="auto" autobuffer loop autoplay>
-					<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
-				</video>
-			}
-			else {
-				<video id="video" src="/Video3d/ReadVideo.mp4" preload="auto" crossorigin="anonymous" style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop autoplay>
-					<source src="/Video3d/ReadVideo.mp4" type="video/mp4" />
-				</video>
-			}
-		</a-assets>
-		<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
-		<a-sky src="/Content/images/video-1920x960-poster22.jpg" transparent="false"></a-sky>
-	</a-scene>
+	<img src="~/Content/images/loading.gif" id="loading-icon" />
 	<script>
 		var Util = Util || {};
 		(function (o) {
@@ -71,27 +53,43 @@
 				$(this).hide();
 				playVRVideo();
 			});
-		
+
+			var vrPlayer = "<a-scene>";
+			vrPlayer += "<a-assets>";
+			if (AFRAME.utils.device.isIOS() && !AFRAME.utils.device.isIOSOlderThan10()) {
+				vrPlayer += "<video id='video' src='/UploadFiles/VRBrandUSA3.mp4' width='100%' height='200' style='object-fit:fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' preload='auto' autobuffer loop autoplay controls><source src='/UploadFiles/VRBrandUSA3.mp4' type='video/mp4' /></video>";
+			} else {
+				vrPlayer += "<video id='video' src='/Video3d/VRVideo.mp4' preload='auto' crossorigin='anonymous' style='object-fit: fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' autobuffer loop autoplay controls><source src='/Video3d/VRVideo.mp4' type='video/mp4' /></video>";				
+			}
+
+			vrPlayer += "</a-assets>";
+			vrPlayer += "<a-videosphere src='#video' rotation='0 180 0'></a-videosphere>";
+			vrPlayer += "<a-sky src='/Content/images/video-1920x960-poster22.jpg' transparent='false'></a-sky>";
+			vrPlayer += "</a-scene>";
+			$(vrPlayer).insertBefore("#play-button");
+
 			Util.checkFileLoadingProgress(function () {
-				$("a-sky").hide();
-				$("a-scene").css({"top": "0px", "left": "0px", "z-index": "9" });
-			});
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
+				$("a-scene").css({ "z-index": "9" });
 
-			document.querySelector("a-scene").addEventListener('enter-vr', function () {
-				playVRVideo();
-			});
+				document.querySelector("a-scene").addEventListener('enter-vr', function () {
+					playVRVideo();
+				});
+				$("body").on("click", ".a-enter-vr-button", function () {
+					playVRVideo();
+				});
 
-			document.querySelector("a-scene").addEventListener('loaded', function () {
-				//$("#play-button").show();
-				$("#loading-icon").hide();
+				document.querySelector("a-scene").addEventListener('loaded', function () {
+					//$("#play-button").show();
+					$("#loading-icon").hide();
+				});
 			});
 
 			function playVRVideo() {
 				var videoBox = $("#video")[0];
 				videoBox.play();
-				$("a-sky").hide();
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				$("a-scene").css({ "top": "0px", "left": "0px", "z-index": "9" });
+				$("a-scene").css({ "z-index": "9" });
 			}
 		});
 

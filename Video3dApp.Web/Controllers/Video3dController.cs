@@ -2,21 +2,21 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Video3dApp.Controllers
 {
 	public class Video3dController : Controller
 	{
-		public ActionResult Detail() {
+
+		public ActionResult BrandUSA() {
 			return View();
 		}
 
-		public void CheckDownloadProgress() {			
-			if ( (string)Session["fileDownload"] == "true" ) {
-				Response.AppendCookie(new HttpCookie("fileDownload", "true") {Path = "/" });
-			}
+		public ActionResult Detail() {
+			return View();
 		}
-
+		
 		[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post | HttpVerbs.Options)]
 		public void ReadVideo() {
 			var reqRange = Request.Headers["Range"];
