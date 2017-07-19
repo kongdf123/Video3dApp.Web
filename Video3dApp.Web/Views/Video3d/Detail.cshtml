@@ -44,11 +44,10 @@
 			o.playVRVideo = function () {
 				var videoBox = $("#video")[0];
 				videoBox.play();
-				if (!o.IsIOS10OrPlus()) {
-					$("a-scene").css({ "top": "0px", "left": "0px" });
-				}
+				$("a-scene").css({ "top": "0px", "left": "0px" });
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				$("a-scene").css({ "z-index": "9" });
+				$("a-sky").hide();
 				$("#btnPlay").hide();
 			};
 			o.IsIOS10OrPlus = function () {
