@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>360-Video Preview</title>
+	<title>Brand USA - 360</title>
 	<style>
 		#btnPlay, #loadingIcon { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 4em; z-index: 11; }
 	</style>
@@ -18,8 +18,6 @@
 </head>
 <body style="background-image:url(http://picture.thomascook.com.cn/active/american-brand/F2.png);background-size:100% 100%;background-repeat:no-repeat;">
 
-	<img src="~/Content/images/play-button.png" id="btnPlay" style="display:none;" />
-	<img src="~/Content/images/loading.gif" id="loadingIcon" />
 	<a-scene>
 		<a-assets>
 			@{
@@ -38,15 +36,15 @@
 		<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
 		<a-sky src="http://picture.thomascook.com.cn/active/american-brand/F2.png" transparent="false"></a-sky>
 	</a-scene>
+	<img src="~/Content/images/play-button.png" id="btnPlay" style="display:none;" />
+	<img src="~/Content/images/loading.gif" id="loadingIcon" />
 	<script type="text/javascript">
 		var vrVideoPlayer = vrVideoPlayer || {};
 		(function (o) {
 			o.playVRVideo = function () {
 				var videoBox = $("#video")[0];
-				videoBox.play();
-				$("a-scene").css({ "top": "0px", "left": "0px" });
-				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				$("a-scene").css({ "z-index": "9" });
+				videoBox.play(); 
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0); 
 				$("#btnPlay").hide();
 			};
 			o.IsIOS10OrPlus = function () {
@@ -80,8 +78,6 @@
 			vrVideoPlayer.checkFileLoadingProgress(function () {
 				$("#btnPlay").show();
 				$("#loadingIcon").hide();
-				$("a-sky").hide();
-				$("a-scene").css({ "top": "0px", "left": "0px", "z-index": "9" });
 
 				document.querySelector("a-scene").addEventListener('enter-vr', function () {
 					vrVideoPlayer.playVRVideo();
@@ -90,12 +86,32 @@
 					$("#loadingIcon").hide();
 				});
 			});
+
+			var devWidth, devHeight;
+			devWidth = screen.width;
+			devHeight = screen.height;
 			$(window).on("orientationchange", function (event) {
-				if (window.orientation === 90 || window.orientation == -90) {//Landscape
-					$(".a-canvas.a-grab-cursor").css({ "width": Math.max(screen.height, screen.width) + "px", "height": Math.min(screen.height, screen.width) + "px", "z-index": "10" });
-				} else {//portrait
-					$(".a-canvas.a-grab-cursor").css({ "width": Math.min(screen.height, screen.width) + "px", "height": Math.max(screen.height, screen.width) + "px", "z-index": "10" });
-				}
+				var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var iw = (iOS) ? screen.width : window.innerWidth, ih = (iOS) ? screen.height : window.innerHeight;
+				//$("<p>iw=" + iw + ";ih=" + ih + ";" + (event.orientation || "undefined") + ";window.orientation=" + window.orientation+"</p>").insertBefore("a-scene");
+				var ticks = 0;
+				//$("body").css("background-image","url()");
+				var orientationTimer = setInterval(function () {
+					if (window.orientation == 180 || window.orientation == 0) {
+						$("canvas").css({ "width": Math.min(devWidth, devHeight) + "px", "height": Math.max(devWidth, devHeight) + "px", "z-index": "10" });
+						$("a-scene").css({ "width": Math.min(devWidth, devHeight) + "px" });
+						clearInterval(orientationTimer);
+					}
+					if (window.orientation == 90 || window.orientation == -90) {
+						$("canvas").css({ "width": Math.max(devWidth, devHeight) + "px", "height": Math.min(devWidth, devHeight) + "px", "z-index": "10" });
+						$("a-scene").css({ "width": Math.max(devWidth, devHeight) + "px" });
+						clearInterval(orientationTimer);
+					}
+					if (ticks > 10) {
+						clearInterval(orientationTimer);
+					}
+					ticks++;
+				}, 300);
 			});
 		});
 
