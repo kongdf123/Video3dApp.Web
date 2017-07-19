@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<title>360-Video Preview</title>
 	<style>
-		#btnPlay, #loadingIcon { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 4em; z-index: 10; }
+		#btnPlay, #loadingIcon { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 4em; z-index: 11; }
 	</style>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -47,7 +47,6 @@
 				$("a-scene").css({ "top": "0px", "left": "0px" });
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				$("a-scene").css({ "z-index": "9" });
-				$("a-sky").hide();
 				$("#btnPlay").hide();
 			};
 			o.IsIOS10OrPlus = function () {
@@ -91,7 +90,13 @@
 					$("#loadingIcon").hide();
 				});
 			});
-
+			$(window).on("orientationchange", function (event) {
+				if (window.orientation === 90 || window.orientation == -90) {//Landscape
+					$(".a-canvas.a-grab-cursor").css({ "width": Math.max(screen.height, screen.width) + "px", "height": Math.min(screen.height, screen.width) + "px", "z-index": "10" });
+				} else {//portrait
+					$(".a-canvas.a-grab-cursor").css({ "width": Math.min(screen.height, screen.width) + "px", "height": Math.max(screen.height, screen.width) + "px", "z-index": "10" });
+				}
+			});
 		});
 
 		// Fix js 'console' compatibility
