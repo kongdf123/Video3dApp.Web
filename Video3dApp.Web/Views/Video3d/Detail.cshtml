@@ -23,10 +23,10 @@
 	<script src="~/Scripts/jquery-3.1.1.js"></script>
 	<script src="~/Scripts/aframe-master.min.js"></script>
 </head>
-<body style="background-image:url(/Content/images/video-1920x960-poster22.jpg);background-size:100% 100%;background-repeat:no-repeat;">
+<body style="background-image:url(http://picture.thomascook.com.cn/active/american-brand/F2.png);background-size:100% 100%;background-repeat:no-repeat;">
 
-	<img src="~/Content/images/play-button.png" id="play-button" style="display:none;" />
-	<img src="~/Content/images/loading.gif" id="loading-icon" />
+	<img src="http://picture.thomascook.com.cn/active/american-brand/play-button.png" id="play-button" style="display:none;" />
+	<img src="http://picture.thomascook.com.cn/active/american-brand/loading.gif" id="loading-icon" />
 	<script type="text/javascript">
 		var vrVideoPlayer = vrVideoPlayer || {};
 		(function (o) {
@@ -34,25 +34,25 @@
 				var vrPlayerTemplate = "<a-scene>";
 				vrPlayerTemplate += "<a-assets>";
 				if (o.IsIOS10OrPlus()) {
-					vrPlayerTemplate += "<video id='video' src='/UploadFiles/VRBrandUSA3.mp4' width='100%' height='200' style='object-fit:fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' preload='auto' autobuffer loop autoplay><source src='/UploadFiles/VRBrandUSA3.mp4' type='video/mp4' /></video>";
+					vrPlayerTemplate += "<video id='video' src='/UploadFiles/VRBrandUSA3.mp4' width='100%' height='200' style='object-fit:fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' preload='auto' crossorigin='anonymous' autobuffer loop autoplay><source src='http://picture.thomascook.com.cn/active/american-brand/BrandUSA_VR_1920x960.mp4' type='video/mp4' /></video>";
 				} else {
 					vrPlayerTemplate += "<video id='video' src='/Video3d/VRVideo.mp4' preload='auto' crossorigin='anonymous' style='object-fit: fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' autobuffer loop autoplay><source src='/Video3d/VRVideo.mp4' type='video/mp4' /></video>";
 				}
 
 				vrPlayerTemplate += "</a-assets>";
 				vrPlayerTemplate += "<a-videosphere src='#video' rotation='0 180 0'></a-videosphere>";
-				vrPlayerTemplate += "<a-sky src='/Content/images/video-1920x960-poster22.jpg' transparent='false'></a-sky>";
+				vrPlayerTemplate += "<a-sky src='http://picture.thomascook.com.cn/active/american-brand/F2.png' transparent='false'></a-sky>";
 				vrPlayerTemplate += "</a-scene>";
 				$(vrPlayerTemplate).insertBefore("#play-button");
 			};
 			o.playVRVideo = function () {
 				var videoBox = $("#video")[0];
-				if (videoBox.paused) {
+				//if (videoBox.paused) {
 					videoBox.play();
-				}
-				if (!o.IsIOS10OrPlus()) {
+				//}
+				//if (!o.IsIOS10OrPlus()) {
 					$("a-scene").css({ "top": "0px", "left": "0px" });
-				}
+				//}
 				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
 				$("a-scene").css({ "z-index": "9" });
 				$("#play-button").hide();
@@ -90,11 +90,11 @@
 				$("#loading-icon").hide();
 				if (!vrVideoPlayer.IsIOS10OrPlus()) {
 					$("#play-button").show();
-				}
-				if (vrVideoPlayer.IsIOS10OrPlus()) {
-					document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-					$("a-scene").css({ "z-index": "9" });
-				}
+				}	
+				//if (vrVideoPlayer.IsIOS10OrPlus()) {
+				//	document.querySelector("a-sky").setAttribute("material", "opacity", 0);
+				//	$("a-scene").css({ "z-index": "9" });
+				//}
 
 				document.querySelector("a-scene").addEventListener('enter-vr', function () {
 					vrVideoPlayer.playVRVideo();
