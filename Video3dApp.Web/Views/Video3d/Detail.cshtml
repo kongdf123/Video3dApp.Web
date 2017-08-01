@@ -5,16 +5,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>360-Video Preview</title>
+	<title>Brand USA - 360</title>
 	<style>
-		#play-button, #loading-icon {
-			position: fixed;
-			top: calc(50% - 1em);
-			left: calc(50% - 2em);
-			width: 4em;
-			height: 4em;
-			z-index: 10;
-		}
+		#btnPlay, #loadingIcon { position: fixed; top: calc(50% - 1em); left: calc(50% - 2em); width: 4em; height: 4em; z-index: 11; }
 	</style>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -25,43 +18,40 @@
 </head>
 <body style="background-image:url(http://picture.thomascook.com.cn/active/american-brand/F2.png);background-size:100% 100%;background-repeat:no-repeat;">
 
-	<img src="http://picture.thomascook.com.cn/active/american-brand/play-button.png" id="play-button" style="display:none;" />
-	<img src="http://picture.thomascook.com.cn/active/american-brand/loading.gif" id="loading-icon" />
+	<a-scene>
+		<a-assets>
+			@{
+				System.Text.RegularExpressions.Regex regMacOriOS = new System.Text.RegularExpressions.Regex("iPad|iPhone|iPod|Mac");
+			}
+			@if ( regMacOriOS.IsMatch(Request.ServerVariables["HTTP_USER_AGENT"]) ) {
+				<video id="video" src="/UploadFiles/VRBrandUSA3.mp4" width="100%" height="200" style="object-fit:fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" preload="auto" autobuffer loop autoplay>
+					<source src="/UploadFiles/VRBrandUSA3.mp4" type="video/mp4" />
+				</video>
+			}else {
+				<video id="video" src="/Video3d/VRVideo.mp4" preload="auto" crossorigin="anonymous" style="object-fit: fill" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" autobuffer loop autoplay>
+					<source src="/Video3d/VRVideo.mp4" type="video/mp4" />
+				</video>
+			}
+		</a-assets>
+		<a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
+		<a-sky src="http://picture.thomascook.com.cn/active/american-brand/F2.png" transparent="false"></a-sky>
+	</a-scene>
+	<img src="~/Content/images/play-button.png" id="btnPlay" style="display:none;" />
+	<img src="~/Content/images/loading.gif" id="loadingIcon" />
 	<script type="text/javascript">
 		var vrVideoPlayer = vrVideoPlayer || {};
 		(function (o) {
-			o.rendVRPlayer = function () {
-				var vrPlayerTemplate = "<a-scene>";
-				vrPlayerTemplate += "<a-assets>";
-				if (o.IsIOS10OrPlus()) {
-					vrPlayerTemplate += "<video id='video' src='/UploadFiles/VRBrandUSA3.mp4' width='100%' height='200' style='object-fit:fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' preload='auto' crossorigin='anonymous' autobuffer loop autoplay><source src='http://picture.thomascook.com.cn/active/american-brand/BrandUSA_VR_1920x960.mp4' type='video/mp4' /></video>";
-				} else {
-					vrPlayerTemplate += "<video id='video' src='/Video3d/VRVideo.mp4' preload='auto' crossorigin='anonymous' style='object-fit: fill' webkit-playsinline='true' x-webkit-airplay='true' playsinline='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' autobuffer loop autoplay><source src='/Video3d/VRVideo.mp4' type='video/mp4' /></video>";
-				}
-
-				vrPlayerTemplate += "</a-assets>";
-				vrPlayerTemplate += "<a-videosphere src='#video' rotation='0 180 0'></a-videosphere>";
-				vrPlayerTemplate += "<a-sky src='http://picture.thomascook.com.cn/active/american-brand/F2.png' transparent='false'></a-sky>";
-				vrPlayerTemplate += "</a-scene>";
-				$(vrPlayerTemplate).insertBefore("#play-button");
-			};
 			o.playVRVideo = function () {
 				var videoBox = $("#video")[0];
-				//if (videoBox.paused) {
-					videoBox.play();
-				//}
-				//if (!o.IsIOS10OrPlus()) {
-					$("a-scene").css({ "top": "0px", "left": "0px" });
-				//}
-				document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				$("a-scene").css({ "z-index": "9" });
-				$("#play-button").hide();
+				videoBox.play(); 
+				document.querySelector("a-sky").setAttribute("material", "opacity", 0); 
+				$("#btnPlay").hide();
 			};
 			o.IsIOS10OrPlus = function () {
 				return (AFRAME.utils.device.isIOS() && !AFRAME.utils.device.isIOSOlderThan10());
 			};
 			o.checkFileLoadingProgress = function (callback) {
-				var maxTimeout = 5 * 60 * 1000; //Waiting 5 minutes
+				var maxTimeout = 5 * 1000; //Waiting 5 seconds
 				var ticks = 0;
 				var checkTimer = setInterval(function () {
 					if ($("#video")[0].readyState > 1) {
@@ -80,39 +70,58 @@
 		})(vrVideoPlayer);
 
 		$(function () {
-			$("#play-button").click(function () {
+			$("#btnPlay").click(function () {
 				$(this).hide();
 				vrVideoPlayer.playVRVideo();
 			});
-			vrVideoPlayer.rendVRPlayer();
 
 			vrVideoPlayer.checkFileLoadingProgress(function () {
-				$("#loading-icon").hide();
-				if (!vrVideoPlayer.IsIOS10OrPlus()) {
-					$("#play-button").show();
-				}	
-				//if (vrVideoPlayer.IsIOS10OrPlus()) {
-				//	document.querySelector("a-sky").setAttribute("material", "opacity", 0);
-				//	$("a-scene").css({ "z-index": "9" });
-				//}
+				$("#btnPlay").show();
+				$("#loadingIcon").hide();
 
 				document.querySelector("a-scene").addEventListener('enter-vr', function () {
 					vrVideoPlayer.playVRVideo();
 				});
-				$("body").on("click", ".a-enter-vr-button", function () {
-					vrVideoPlayer.playVRVideo();
+				document.querySelector("a-scene").addEventListener('loaded', function () {
+					$("#loadingIcon").hide();
 				});
 			});
 
+			var devWidth, devHeight;
+			devWidth = screen.width;
+			devHeight = screen.height;
+			$(window).on("orientationchange", function (event) {
+				var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var iw = (iOS) ? screen.width : window.innerWidth, ih = (iOS) ? screen.height : window.innerHeight;
+				//$("<p>iw=" + iw + ";ih=" + ih + ";" + (event.orientation || "undefined") + ";window.orientation=" + window.orientation+"</p>").insertBefore("a-scene");
+				var ticks = 0;
+				//$("body").css("background-image","url()");
+				var orientationTimer = setInterval(function () {
+					if (window.orientation == 180 || window.orientation == 0) {
+						$("canvas").css({ "width": Math.min(devWidth, devHeight) + "px", "height": Math.max(devWidth, devHeight) + "px", "z-index": "10" });
+						$("a-scene").css({ "width": Math.min(devWidth, devHeight) + "px" });
+						clearInterval(orientationTimer);
+					}
+					if (window.orientation == 90 || window.orientation == -90) {
+						$("canvas").css({ "width": Math.max(devWidth, devHeight) + "px", "height": Math.min(devWidth, devHeight) + "px", "z-index": "10" });
+						$("a-scene").css({ "width": Math.max(devWidth, devHeight) + "px" });
+						clearInterval(orientationTimer);
+					}
+					if (ticks > 10) {
+						clearInterval(orientationTimer);
+					}
+					ticks++;
+				}, 300);
+			});
 		});
 
 		// Fix js 'console' compatibility
 		var console = window.console || {};
 		(function (o) {
 			var funcs = ['assert', 'clear', 'count', 'debug', 'dir', 'dirxml',
-						 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd',
-						 'info', 'log', 'markTimeline', 'profile', 'profileEnd',
-						 'table', 'time', 'timeEnd', 'timeStamp', 'trace', 'warn'];
+				'error', 'exception', 'group', 'groupCollapsed', 'groupEnd',
+				'info', 'log', 'markTimeline', 'profile', 'profileEnd',
+				'table', 'time', 'timeEnd', 'timeStamp', 'trace', 'warn'];
 			for (var i = 0, l = funcs.length; i < l; i++) {
 				var func = funcs[i];
 				o[func] = o[func] || function () { };
